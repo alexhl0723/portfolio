@@ -1,22 +1,47 @@
+---
+import '../styles/global.css'
+import Header from '../components/header.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Portfolio de Alex Herbas - Desarrollador Web" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+    
+  <body class="relative bg-[#dedee7] dark:bg-neutral-950">
+    <!-- Efectos de fondo -->
+    <div class="fixed top-0 z-[-1] h-screen w-screen bg-noise opacity-5 dark:opacity-0"></div>
+    <div class="fixed top-0 z-[-2] h-screen w-screen bg-black/50 bg-[radial-gradient(ellipse_75%_89%_at_45%_-5%,rgba(120,119,198,0.3),rgba(255,255,255,0))] dark:bg-transparent"></div>
+    
+    <!-- Header -->
+    <Header />
+    
+    <!-- Contenido principal - aseguramos que ocupe todo el ancho disponible -->
+    <main class="w-full overflow-x-hidden">
+      <slot />
+    </main>
+
+    <!-- Efectos adicionales - blobs de luz -->
+    <div class="fixed top-20 left-0 w-[300px] h-[300px] bg-purple-200 dark:bg-transparent rounded-full shadow-2xs filter blur-[150px] opacity-20 z-[-140] dark:opacity-0"></div>
+    <div class="fixed bottom-0 right-0 w-[400px] h-[400px] bg-purple-200 dark:bg-transparent rounded-full filter blur-[100px] opacity-10 z-[-140] dark:opacity-0"></div>
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  html {
+    font-family: system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
 </style>

@@ -1,15 +1,15 @@
 ---
-import '../styles/global.css'
-import Layout from '../layouts/Layout.astro';
-import Proyectos from '../components/proyectos.astro';
-import Badge from '../components/badge.astro';
-import SectionContainer from '../components/section_container.astro';
-import Habilidades from '../components/habilidades.astro';
-import Github from '../icons/github.astro';
-import LinkedIn from '../icons/linkedIn.astro';
-import Footer from '../components/Footer.astro';
-import { translate } from '../utils/translate';
-import BottomNav from '../components/BottomNav.astro';
+import Layout from '../../layouts/Layout.astro';
+import Proyectos from '../../components/proyectos.astro';
+import Badge from '../../components/badge.astro';
+import SectionContainer from '../../components/section_container.astro';
+import Habilidades from '../../components/habilidades.astro';
+import Github from '../../icons/github.astro';
+import LinkedIn from '../../icons/linkedIn.astro';
+import Footer from '../../components/Footer.astro';
+import { translate } from '../../utils/translate';
+import '../../styles/global.css'
+import BottomNav from '../../components/BottomNav.astro';
 
 const {locale, t} = translate(Astro.url.pathname);
 

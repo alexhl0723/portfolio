@@ -1,0 +1,180 @@
+---
+import { translate } from '../utils/translate';
+import Home from '../icons/house.astro';
+import Project from '../icons/project.astro';
+import EyeCode from '../icons/eyeCode.astro';
+import Email from '../icons/Email.astro';
+const { locale, t } = translate(Astro.url.pathname);
+
+---
+
+<footer class="text-white py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <!-- Column 1: Logo & Descripción -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-xl font-bold mb-4">{t.footer.myName}</h3>
+        <p class="text-gray-400 text-sm text-center md:text-left">
+          {t.footer.description}
+        </p>
+      </div>
+
+      <!-- Column 2: Enlaces rápidos -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-xl font-bold mb-4">{t.footer.quickLinks}</h3>
+        <ul class="flex flex-col gap-2 text-center md:text-left">
+          <li><a href="#inicio" class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><Home class="w-5 h-5"/> {t.footer.start}</a></li>
+          <li><a href="#projects" class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><Project class="w-5 h-5"/> {t.footer.projects}</a></li>
+          <li><a href="#skills" class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><EyeCode class="w-5 h-5"/> {t.footer.skills}</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Info de contacto -->
+      <div class="flex flex-col items-center md:items-start">
+        <h3 class="text-xl font-bold mb-4">{t.footer.contact}</h3>
+        <a href="mailto:alexrodrigoherbas07@gmail.com" class="text-gray-400 text-sm text-center md:text-left flex items-center gap-2 hover:text-white transition-colors cursor-pointer"><Email class="w-5 h-5"/>{t.footer.myEmail}</a>
+        <p class="text-gray-400 text-sm text-center md:text-left">
+          {t.footer.descriptionContact}
+        </p>
+      </div>
+
+      <!-- Column 4: Formulario de contacto -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 text-center md:text-left">{t.footer.contactMail.sendMessage}</h3>
+        <form id="contactForm" class="flex flex-col gap-3">
+          <input
+            type="text"
+            name="name"
+            placeholder={t.footer.contactMail.name}
+            required
+            class="px-4 py-2 rounded bg-white/10 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder={t.footer.contactMail.email}
+            required
+            class="px-4 py-2 rounded bg-white/10 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <textarea
+            name="message"
+            rows="3"
+            placeholder={t.footer.contactMail.message}
+            required
+            class="max-h-72 min-h-24  px-4 py-2 rounded bg-white/10 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          ></textarea>
+          <button
+            type="submit"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded transition-all duration-300"
+            id="submitButton"
+          >
+            Enviar
+          </button>
+          <p id="formStatus" class="text-center mt-2 hidden"></p>
+        </form>
+      </div>
+    </div>
+
+    
+
+    <script is:inline>
+      import './contactScripts/contactForm';
+    </script>
+
+    <!-- Social & footer info -->
+    <div class="flex flex-col items-center justify-center gap-6 border-t border-gray-800 pt-8">
+      
+      <p class="text-gray-500 text-center text-sm">
+        &copy; {new Date().getFullYear()} {t.footer.creator}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .container {
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  @keyframes pulsing {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+
+  .animate-pulsing {
+    animation: pulsing 1.5s infinite;
+  }
+
+  footer h3 {
+    position: relative;
+  }
+
+  footer h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: rgb(99, 102, 241);
+    border-radius: 2px;
+  }
+
+  @media (min-width: 768px) {
+    footer h3::after {
+      left: 0;
+      transform: none;
+    }
+  }
+</style>
+
+
+<script is:inline>
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // Prevenir envío tradicional
+    
+    const button = document.getElementById('submitButton');
+    const status = document.getElementById('formStatus');
+    
+    button.textContent = 'Enviando...';
+    button.disabled = true;
+    
+    try {
+      const formData = new FormData(this);
+      
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        status.textContent = '¡Mensaje enviado con éxito! Gracias por contactarme.';
+        status.className = 'text-center mt-2 text-green-400';
+        status.classList.remove('hidden');
+        this.reset();
+      } else {
+        status.textContent = result.message || 'Error al enviar el mensaje';
+        status.className = 'text-center mt-2 text-red-400';
+        status.classList.remove('hidden');
+      }
+    } catch (error) {
+      status.textContent = 'Error de conexión. Por favor, inténtalo más tarde.';
+      status.className = 'text-center mt-2 text-red-400';
+      status.classList.remove('hidden');
+    } finally {
+      button.textContent = 'Enviar';
+      button.disabled = false;
+      
+      setTimeout(() => {
+        if (status.className.includes('text-green-400')) {
+          status.classList.add('hidden');
+        }
+      }, 5000);
+    }
+  });
+</script>

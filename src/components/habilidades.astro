@@ -1,0 +1,94 @@
+---
+import MongoDB from "../icons/mongoDB.astro";
+import Css from "../icons/Css.astro";
+import Html from "../icons/html.astro";
+import JavaScript from "../icons/javaScript.astro";
+import Astroicon from "../icons/Astroicon.astro";
+import Java from "../icons/java.astro";
+import SqlServer from "../icons/SqlServer.astro";
+import MySQl from "../icons/MySQl.astro";
+import Node from "../icons/node.astro";
+import Tailwindcss from "../icons/Tailwindcss.astro";
+import React from "../icons/react.astro";
+import {translate} from "../utils/translate"
+
+
+const {locale , t} = translate(Astro.url.pathname);
+
+---
+
+<section class="py-12 sm:py-16 md:py-20 lg:py-24 dark:from-black/20 dark:to-transparent w-full" id="skills" >
+    <div class="max-w-5xl mx-auto px-4">
+        <h2 class="text-3xl sm:text-4xl dark:text-white/90 text-white/90 md:text-5xl font-semibold text-center mb-6 sm:mb-8 md:mb-12">{t.skills.title}</h2>
+        <p class="text-center dark:text-gray-400 mb-8 sm:mb-12 md:mb-16 max-w-xs sm:max-w-md md:max-w-2xl mx-auto text-sm sm:text-base">{t.skills.description}</p>
+
+        <div class="skills-container mx-auto w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-2xl xl:max-w-3xl">
+            <!-- Frontend Section -->
+            <div class="skill-section">
+                <div class="section-header">
+                    <div class="category-indicator"></div>
+                    <h3 class="section-title">{t.skills.skillSection.frontend}</h3>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card group">
+                        <Html class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">HTML5</span>
+                    </div>
+                    <div class="skill-card group">
+                        <Css class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">CSS3</span>
+                    </div>
+                    <div class="skill-card group">
+                        <JavaScript class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">JavaScript</span>
+                    </div>
+                    <div class="skill-card group">
+                        <Astroicon class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">Astro</span>
+                    </div>
+                    <div class="skill-card group">
+                        <Tailwindcss class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">Tailwind CSS</span>
+                    </div>
+                    <div class="skill-card group">
+                        <React class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">React</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Section -->
+            <div class="skill-section">
+                <div class="section-header">
+                    <div class="category-indicator backend"></div>
+                    <h3 class="section-title">{t.skills.skillSection.backend}</h3>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card group">
+                        <Java class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">Java</span>
+                    </div>
+                    <div class="skill-card group">
+                        <SqlServer class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">SQL Server</span>
+                    </div>
+                    <div class="skill-card group">
+                        <MySQl class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">MySQL</span>
+                    </div>
+                    <div class="skill-card group">
+                        <Node class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">Node.js</span> 
+                    </div>
+                    <div class="skill-card group">
+                        <MongoDB class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
+                        <span class="skill-name">MongoDB</span> 
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Puedes añadir más secciones siguiendo el mismo patrón -->
+        </div>
+    </div>
+</section>

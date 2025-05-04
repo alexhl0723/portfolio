@@ -1,0 +1,127 @@
+---
+import Barra from '../icons/barra.astro';
+import X from '../icons/x.astro';
+import { translate } from '../utils/translate';
+  const title = "AH"
+
+  const {locale, t} = translate(Astro.url.pathname);
+---
+
+<script src="../components/js/menuMobil.js"></script>
+
+<header class="top-0 w-full z-50 px-4 py-3 m-auto" id="inicio">
+  <div class="max-w-5xl mx-auto flex items-center justify-between">
+    <!-- Logo con efecto de gradiente -->
+    <a href="/" class="text-4xl font-bold bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent hover:scale-105 transition-all">
+      {title}
+    </a>
+    
+    <!-- Navegación para desktop -->
+    <nav class="hidden md:block">
+      <ul class="flex items-center gap-8">
+        <li>
+          <a href="#projects" 
+             class="relative text-sm text-gray-300 hover:text-white transition-colors">
+            <span class="relative">
+              {t.header.project}
+              <span class="absolute inset-x-0 bottom-0 h-0.5 bg-yellow-200 transform scale-x-0 transition-transform origin-left hover:scale-x-100"></span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#skills" 
+             class="relative text-sm text-gray-300 hover:text-white transition-colors">
+            <span class="relative">
+              {t.header.skills}
+              <span class="absolute inset-x-0 bottom-0 h-0.5 bg-yellow-200 transform scale-x-0 transition-transform origin-left hover:scale-x-150"></span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a 
+            href="/CV.pdf"
+            class="px-4 py-2 text-sm text-black font-medium bg-white rounded-full hover:bg-gray-200/90 transition-colors duration-300"
+            download
+          >
+            {t.header.download_cv}
+          </a>
+        </li>
+        <li>
+          <!-- Nuevo selector de idioma para desktop -->
+          <div class="language-switcher relative">
+            <div class="flex bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+              <a href="/" class={`px-3 py-1 text-sm transition-all duration-300 ${locale === 'es' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>ES</a>
+              <a href="/en" class={`px-3 py-1 text-sm transition-all duration-300 ${locale === 'en' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>EN</a>
+              <a href="/ja" class={`px-3 py-1 text-sm transition-all duration-300 ${locale === 'ja' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>JA</a>
+              <a href="/fr" class={`px-3 py-1 text-sm transition-all duration-300 ${locale === 'fr' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>FR</a>
+            </div>
+            <span class="absolute inset-0 rounded-full bg-yellow-200/20 scale-0 group-hover:scale-110 transition-transform duration-300 -z-10"></span>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Botón hamburguesa simple como en la imagen -->
+    <div class="flex flex-wrap gap-6 md:hidden">
+      <!-- Nuevo selector de idioma para móvil -->
+      <div class="language-switcher-mobile relative">
+        <div class="flex bg-gray-800 rounded-full overflow-hidden border border-gray-700">
+          <a href="/" class={`px-2 py-1 text-xs transition-all duration-300 ${locale === 'es' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>ES</a>
+          <a href="/en" class={`px-2 py-1 text-xs transition-all duration-300 ${locale === 'en' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>EN</a>
+          <a href="/ja" class={`px-2 py-1 text-xs transition-all duration-300 ${locale === 'ja' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>JA</a>
+          <a href="/fr" class={`px-2 py-1 text-xs transition-all duration-300 ${locale === 'fr' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-white'}`}>FR</a>
+          </div>
+      </div>
+      <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
+        <Barra class="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Línea decorativa con gradiente -->
+  <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
+  
+  <!-- Menú móvil desplegable (solo visible al hacer clic en menú) -->
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-95 z-50 items-center justify-center">
+    <div class="container mx-auto px-6">
+      <div class="flex justify-end mb-12">
+        <button id="close-menu" class="text-white">
+          <X class="w-10 h-10 pt-2" />
+        </button>
+      </div>
+      
+      <ul class="flex flex-col items-start gap-6 ">
+        <li class="w-full border-b border-gray-800 pb-4">
+          <a href="#projects" class="text-xl text-gray-300 hover:text-white transition-colors ">
+            {t.header.project}
+          </a>
+        </li>
+        <li class="w-full border-b border-gray-800 pb-4">
+          <a href="#skills" class="text-xl text-gray-300 hover:text-white transition-colors">
+            {t.header.skills}
+          </a>
+        </li>
+        <li class="mt-6">
+          <a 
+            href="/CV.pdf"
+            class="inline-block px-6 py-3 text-black font-medium bg-white rounded-full hover:bg-yellow-200 transition-colors duration-300"
+            download
+          >
+            {t.header.download_cv}
+          </a>
+        </li>
+        <!-- Selector de idioma en el menú móvil -->
+        <li class="mt-6 w-full flex justify-center">
+          <div class="language-switcher-menu">
+            <div class="flex bg-gray-800 rounded-full overflow-hidden border border-gray-700 p-1">
+              <a href="/" class={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${locale === 'es' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-yellow-100'}`}>ES</a>
+              <a href="/en" class={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${locale === 'en' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-yellow-100'}`}>EN</a>
+              <a href="/ja" class={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${locale === 'ja' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-yellow-100'}`}>JA</a>
+              <a href="/fr" class={`px-4 py-2 text-sm rounded-full transition-all duration-300 ${locale === 'fr' ? 'text-black font-medium bg-yellow-200' : 'text-gray-300 hover:text-yellow-100'}`}>FR</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>

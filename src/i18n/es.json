@@ -1,0 +1,44 @@
+{
+    "index":{
+    "greeting": "Hola, soy Alex",
+    "available": "Disponible para trabajar",
+    "description": "Apasionado por la tecnología, que busca un entorno dinámico, donde pueda aplicar mis conocimientos, contribuir al éxito del equipo y seguir desarrollándome profesionalmente.",
+    "download_cv": "Descargar CV"
+    },
+    "header":{
+        "project" : "Proyectos",
+        "skills" : "Habilidades",
+        "download_cv": "Descargar CV"
+    },
+    "projects":{
+        "title": "Proyectos",
+        "description": "Transformando ideas en código"
+    },
+    "skills":{
+        "title": "Habilidades Técnicas",
+        "description": "Conjunto de tecnologías y conocimientos que he adquirido a lo largo de mi trayectoria profesional.",
+        "skillSection":{
+            "frontend": "Frontend",
+            "backend": "Backend"
+        }
+    },
+    "footer":{
+        "myName": "Alex Herbas",
+        "description": "Desarrollador y diseñador apasionado por crear experiencias web excepcionales.",
+        "quickLinks": "Enlaces Rápidos",
+        "start": "inicio",
+        "projects": "proyectos",
+        "skills": "habilidades",
+        "contact": "contacto",
+        "myEmail": "mi correo",
+        "descriptionContact": "¿Tienes un proyecto interesante? ¡Hablemos!",
+        "contactMail":{
+            "sendMessage": "Envíame un mensaje",
+            "name": "Nombre",
+            "email": "Tu correo",
+            "message": "Mensaje"
+        },
+        "creator": "Alex Herbas. Todos los derechos reservados."
+    }
+  }
+  
