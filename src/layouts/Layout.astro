@@ -1,6 +1,10 @@
 ---
 import '../styles/global.css'
+import Analytics from '@vercel/analytics/astro';
 import Header from '../components/header.astro';
+import { translate } from '../utils/translate';
+
+const { locale } = translate(Astro.url.pathname);
 
 interface Props {
   title: string;
@@ -10,7 +14,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Portfolio de Alex Herbas - Desarrollador Web" />
@@ -18,6 +22,7 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <Analytics />
   </head>
     
   <body class="relative bg-[#dedee7] dark:bg-neutral-950">
