@@ -1,38 +1,36 @@
-import {defineMiddleware} from "astro/middleware";
+import { defineMiddleware } from "astro/middleware";
 
-const SUPPORTED_LANGUAGES = ['es', 'en', 'fr', 'jp'];
+const SUPPORTED_LANGUAGES = ['es', 'en', 'fr', 'ja'];
 
 export const onRequest = defineMiddleware((context, next) => {
-    const lang = context.request.headers.get("Accept-Language");
-    const [langCode] = lang?.split(",")?.[0]?.split("-") || [];
+    // Obtener el encabezado Accept-Language
+    const acceptLanguage = context.request.headers.get("Accept-Language") || "";
     
-    const currentPath = new URL(context.request.url).pathname;
-    const currentLang = currentPath.split('/')[1];
-
-    // Si la ruta no tiene idioma y hay un idioma detectado, redirigir
-    if (!currentLang && langCode && SUPPORTED_LANGUAGES.includes(langCode)) {
-        // Extraer la ruta sin el idioma actual
-        const pathParts = currentPath.split('/');
-        const newPath = `/${langCode}/${pathParts.slice(1).join('/')}`;
-        
-        return new Response(null, {
-            status: 302,
-            headers: {
-                'Location': newPath
-            }
-        });
+    // Extraer el código de idioma preferido
+    let preferredLang = null;
+    
+    // Primero intentamos encontrar una coincidencia exacta
+    for (const lang of acceptLanguage.split(',')) {
+        const [langCode] = lang.trim().split(';')[0].split('-');
+        if (SUPPORTED_LANGUAGES.includes(langCode)) {
+            preferredLang = langCode;
+            break;
+        }
     }
-
-    // Si la ruta tiene un idioma válido, continuar normalmente
+    
+    // URL actual y partes de la ruta
+    const url = new URL(context.request.url);
+    const pathParts = url.pathname.split('/').filter(Boolean);
+    const currentLang = pathParts[0];
+    
+    // Si la ruta ya tiene un idioma válido, continuar normalmente
     if (currentLang && SUPPORTED_LANGUAGES.includes(currentLang)) {
         return next();
     }
-
-    // Si la ruta no tiene un idioma válido y no hay idioma detectado, usar español por defecto
-    if (!currentLang && !langCode) {
-        const pathParts = currentPath.split('/');
-        const newPath = `/es/${pathParts.slice(1).join('/')}`;
-        
+    
+    // Si no hay idioma en la URL pero detectamos uno válido, redirigir
+    if (preferredLang) {
+        const newPath = `/${preferredLang}${url.pathname.startsWith('/') ? url.pathname : '/' + url.pathname}`;
         return new Response(null, {
             status: 302,
             headers: {
@@ -40,7 +38,13 @@ export const onRequest = defineMiddleware((context, next) => {
             }
         });
     }
-
-    // Si no se reconoce el idioma, continuar con el flujo normal
-    return next();
+    
+    // Si no se detectó ningún idioma válido, usar español por defecto
+    const newPath = `/es${url.pathname.startsWith('/') ? url.pathname : '/' + url.pathname}`;
+    return new Response(null, {
+        status: 302,
+        headers: {
+            'Location': newPath
+        }
+    });
 });
