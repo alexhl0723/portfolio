@@ -11,7 +11,8 @@ export default defineConfig({
   env:{
       schema:{
         MONGODB_URI: envField.string({ context: 'server', access:'secret' }),
-        DB_NAME: envField.string({ context: 'server', access:'secret' })
+        DB_NAME: envField.string({ context: 'server', access:'secret' }),
+        RESEND_API_KEY: envField.string({ context: 'server', access:'secret' }),
       }
     },
 

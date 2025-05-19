@@ -2,9 +2,8 @@
 import type { APIRoute } from "astro";
 import { MongoClient } from "mongodb";
 import { MONGODB_URI, DB_NAME } from 'astro:env/server';
-
-
-
+import { Resend } from "resend";
+import { RESEND_API_KEY } from "astro:env/server";
 
 export const POST: APIRoute = async ({ request }) => {
   let client;
@@ -48,8 +47,40 @@ export const POST: APIRoute = async ({ request }) => {
       mensaje: message,
       fecha: new Date()
     });
-    
     console.log("📝 Mensaje guardado en MongoDB con ID:", resultado.insertedId);
+
+    const resend = new Resend(RESEND_API_KEY);
+
+// Enviar correo a ti mismo
+await resend.emails.send({
+  from: 'alex@alexhl.software',
+  to: 'alexrodrigoherbas07@gmail.com',
+  subject: `New message from your portfolio 🚀`,
+  html: `
+    <h2>New message from your portfolio 🚀</h2>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Message:</strong></p>
+    <p>${message}</p>
+  `
+});
+console.log("📨 Correo enviado a Alex");
+
+// Enviar respuesta automática al visitante
+await resend.emails.send({
+  from: 'alex@alexhl.software',
+  to: email,
+  subject: `Thank you for your message, ${name}`,
+  html: `
+    <h2>Hi ${name} 👋</h2>
+    <p>Thank you for your message. I have received your message:</p>
+    <blockquote>${message}</blockquote>
+    <p>I will get in touch with you as soon as possible.</p>
+    <p>Best regards,<br>Alex</p>
+  `
+});
+console.log("📩 Respuesta automática enviada al visitante");
+
 
     // console.log("📝 Mensaje guardado en MongoDB con ID:", resultado.insertedId);
 
