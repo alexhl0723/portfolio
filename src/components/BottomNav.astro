@@ -1,29 +1,130 @@
 ---
 import '../styles/global.css'
-import GitHub from '../icons/github.astro'
-import LinkedIn from '../icons/linkedIn.astro'
 import Email from '../icons/Email.astro'
 import Cv from '../icons/cv.astro'
 import ThemeColor from '../components/themeColor.astro'
+import Project from '../icons/project.astro'
+import EyeCode from '../icons/eyeCode.astro'
+import Github from '../icons/github.astro'
+import LinkedIn from '../icons/linkedIn.astro'
+import { translate } from '../utils/translate';
+
+const { t } = translate(Astro.url.pathname);
 ---
-<script src="../components/js/footerBar.js"></script>
-<div class="social-bar flex bg-[#08101c] items-center justify-center w-auto gap-6 ease-in-out px-5 py-2 m-auto rounded-full">
-  <div class="rounded-full social-icon"><a href="https://github.com/alexhl0723" target="_blank"><GitHub class="w-10 h-10 social-svg"/></a></div>
-  <div class="rounded-full social-icon"><a href="https://www.linkedin.com/in/alexherbasleiva/" target="_blank"><LinkedIn class="text-black w-10 h-10 rounded-full social-svg"/></a></div>
-  <div class="rounded-full social-icon"><a href="/CV Alex.pdf" download><Cv class="text-black w-10 h-10 social-svg"/></a></div>
-  <div class="rounded-full social-icon"><a href="mailto:alexrodrigoherbas07@gmail.com" class="cursor-pointer"><Email class="w-10 h-10 rounded-full social-svg"/></a></div>
-  <div class="rounded-full social-icon"><ThemeColor/></div>
+
+<div class="social-bar flex bg-[#08101c7a] items-center justify-center w-auto gap-6 ease-in-out mt-4 px-5 py-2 m-auto rounded-full">
+  <!-- <div class="relative group tooltip-container">
+    <div class="rounded-full social-icon">
+      <a href={`#${t.links.home}`}>
+        <Home class="w-10 h-10 social-svg text-white/80"/>
+      </a>
+    </div>
+    <span class="tooltip">{t.tooltips.home}</span>
+  </div> -->
+  
+  <div class="relative group tooltip-container">
+    <div class="rounded-full social-icon" data-section="projects">
+      <a href={`#${t.links.projects}`}>
+        <Project class="w-10 h-10 rounded-full social-svg text-white/80 nav-icon" data-target="projects"/>
+      </a>
+    </div>
+    <span class="tooltip">{t.tooltips.projects}</span>
+  </div>
+  
+  <div class="relative group tooltip-container">
+    <div class="rounded-full social-icon" data-section="skills">
+      <a href={`#${t.links.skills}`}>
+        <EyeCode class="w-10 h-10 rounded-full social-svg text-white/80 nav-icon" data-target="skills"/>
+      </a>
+    </div>
+    <span class="tooltip">{t.tooltips.skills}</span>
+  </div>
+  
+  <div class="relative group tooltip-container">
+    <div class="rounded-full social-icon">
+      <a href="/CVAlexRodrigoHerbasLeiva.pdf" download>
+        <Cv class="w-10 h-10 social-svg text-white/80"/>
+      </a>
+    </div>
+    <span class="tooltip">{t.tooltips.cv}</span>
+  </div>
+  
+  <div class="relative group tooltip-container">
+    <div class="rounded-full social-icon" data-section="contact">
+      <a href={`#${t.links.contact}`} class="cursor-pointer">
+        <Email class="w-10 h-10 rounded-full social-svg text-white/80 nav-icon" data-target="contact"/>
+      </a>
+    </div>
+    <span class="tooltip">{t.tooltips.contact}</span>
+  </div>
+
+  <div class="relative group tooltip-container">
+    <div class="rounded-full social-icon">
+      <a href="https://github.com/alexhl0723" target="_blank" class="cursor-pointer">
+        <Github class="w-10 h-10 rounded-full social-svg text-white/80 nav-icon"/>
+      </a>
+    </div>
+    <span class="tooltip">github</span>
+  </div>
+  
+  <div class="relative group tooltip-container">
+    <div class="rounded-full social-icon">
+      <ThemeColor/>
+    </div>
+    <span class="tooltip">{t.tooltips.theme}</span>
+  </div>
 </div>
 
-
 <style>
+  .tooltip-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip {
+    position: absolute;
+    bottom: calc(80% + -85px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(24, 23, 23, 0.344);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    transform: translateX(50%) translateY(-50px);
+  }
+  
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #2b4bc0;
+  }
+  
+  .tooltip-container:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+  
   .social-bar {
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); 
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
   }
   
   .social-bar:hover {
-    transition: 5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     width: 380px;
     box-shadow: 0 15px 30px rgba(0,0,0,0.15);
   }
@@ -31,17 +132,17 @@ import ThemeColor from '../components/themeColor.astro'
   .social-icon {
     transition-property: transform, box-shadow;
     transition-duration: 0.6s;
-    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1.4); /* Curva suave con rebote natural */
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1.4);
     transform: scale(0.9);
     position: relative;
     z-index: 1;
-    will-change: transform, z-index; /* Mejora el rendimiento */
+    will-change: transform;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   }
   
   .social-icon:hover {
     box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    
+    transform: scale(1);
   }
   
   .social-svg {
@@ -49,7 +150,36 @@ import ThemeColor from '../components/themeColor.astro'
     will-change: transform, filter;
   }
   
-  .social-icon.active .social-svg {
+  .social-icon:hover .social-svg {
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
   }
+
+  /* Estilos para iconos activos */
+  .nav-icon.active {
+    color: #3b82f6 !important; /* Color azul cuando está activo */
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+  }
+
+  .social-icon.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  }
+
+/* Efecto de pulso adicional */
+.nav-icon.active::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #3b82f6, #6366f1, #8b5cf6, #3b82f6);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.7;
+  animation: rotate 3s linear infinite;
+}
+
 </style>
+
+<script src="../components/js/footerBar.js"></script>

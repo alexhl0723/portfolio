@@ -23,9 +23,9 @@ const { locale, t } = translate(Astro.url.pathname);
       <div class="flex flex-col items-center md:items-start">
         <h3 class="text-xl font-bold mb-4">{t.footer.quickLinks}</h3>
         <ul class="flex flex-col gap-2 text-center md:text-left">
-          <li><a href="#inicio" class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><Home class="w-5 h-5"/> {t.footer.start}</a></li>
-          <li><a href="#projects" class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><Project class="w-5 h-5"/> {t.footer.projects}</a></li>
-          <li><a href="#skills" class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><EyeCode class="w-5 h-5"/> {t.footer.skills}</a></li>
+          <li><a href={`#${t.links.home}`} class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><Home class="w-5 h-5"/> {t.footer.start}</a></li>
+          <li><a href={`#${t.links.projects}`} class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><Project class="w-5 h-5"/> {t.footer.projects}</a></li>
+          <li><a href={`#${t.links.skills}`} class="text-gray-400 flex items-center gap-2 hover:text-white transition-colors"><EyeCode class="w-5 h-5"/> {t.footer.skills}</a></li>
         </ul>
       </div>
 
@@ -39,7 +39,7 @@ const { locale, t } = translate(Astro.url.pathname);
       </div>
 
       <!-- Column 4: Formulario de contacto -->
-      <div>
+      <div id={t.links.contact}>
         <h3 class="text-xl font-bold mb-4 text-center md:text-left">{t.footer.contactMail.sendMessage}</h3>
         <form id="contactForm" class="flex flex-col gap-3">
           <input
@@ -77,8 +77,8 @@ const { locale, t } = translate(Astro.url.pathname);
 
     
 
-    <script is:inline>
-      import '../contactScripts/contactForm';
+    <script>
+      import '../contactScripts/contactForm.ts';
     </script>
 
     <!-- Social & footer info -->
@@ -130,51 +130,3 @@ const { locale, t } = translate(Astro.url.pathname);
     }
   }
 </style>
-
-
-<script is:inline>
-  document.getElementById('contactForm').addEventListener('submit', async function(e) {
-    e.preventDefault(); // Prevenir envío tradicional
-    
-    const button = document.getElementById('submitButton');
-    const status = document.getElementById('formStatus');
-    
-    button.textContent = 'Enviando...';
-    button.disabled = true;
-    
-    try {
-      const formData = new FormData(this);
-      
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        body: formData
-      });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        status.textContent = '¡Mensaje enviado con éxito! Gracias por contactarme.';
-        status.className = 'text-center mt-2 text-green-400';
-        status.classList.remove('hidden');
-        this.reset();
-      } else {
-        status.textContent = result.message || 'Error al enviar el mensaje';
-        status.className = 'text-center mt-2 text-red-400';
-        status.classList.remove('hidden');
-      }
-    } catch (error) {
-      status.textContent = 'Error de conexión. Por favor, inténtalo más tarde.';
-      status.className = 'text-center mt-2 text-red-400';
-      status.classList.remove('hidden');
-    } finally {
-      button.textContent = 'Enviar';
-      button.disabled = false;
-      
-      setTimeout(() => {
-        if (status.className.includes('text-green-400')) {
-          status.classList.add('hidden');
-        }
-      }, 5000);
-    }
-  });
-</script>

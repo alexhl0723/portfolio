@@ -1,0 +1,52 @@
+---
+// src/pages/404.astro
+import Layout404 from '../layouts/Layout404.astro';
+
+const { url } = Astro;
+const path = url.pathname;
+
+// Obtener el idioma de la URL
+const locale = path.split('/')[1] || 'es';
+
+// Traducciones
+const translations = {
+  es: {
+    title: 'Página no encontrada',
+    message: 'No encontramos la página que buscas.',
+    home: 'Volver al inicio'
+  },
+  en: {
+    title: 'Page not found',
+    message: 'We could not find the page you are looking for.',
+    home: 'Back to home'
+  },
+  fr: {
+    title: 'Page non trouvée',
+    message: 'Nous n\'avons pas trouvé la page que vous cherchiez.',
+    home: 'Retour à l\'accueil'
+  },
+  ja: {
+    title: 'ページが見つかりません',
+    message: '申し訳ありませんが、お探しのページは存在しません。',
+    home: 'ホームに戻る'
+  }
+};
+
+const t = translations[locale as keyof typeof translations] || translations['es'];
+---
+
+<Layout404 title={t.title}>
+  <main class="min-h-screen flex flex-col items-center justify-center text-center p-4 overflow-hidden">
+    <div class="bg-[url(/gato404.webp)] object-cover bg-cover bg-center h-[100vh] w-screen">
+    <h1 class="text-6xl font-bold text-gray-800 dark:text-white mb-4">404</h1>
+    <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-6">{t.title}</h2>
+    <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-md">{t.message}</p>
+    <a 
+      href={`/${locale}`} 
+      class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+    >
+      {t.home}
+    </a>
+  </div>
+  </main>
+</Layout404>

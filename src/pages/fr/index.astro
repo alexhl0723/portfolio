@@ -8,7 +8,6 @@ import Github from '../../icons/github.astro';
 import LinkedIn from '../../icons/linkedIn.astro';
 import Footer from '../../components/Footer.astro';
 import { translate } from '../../utils/translate';
-import BottomNav from '../../components/BottomNav.astro';
 const {locale, t} = translate(Astro.url.pathname);
 
 ---
@@ -16,10 +15,9 @@ const {locale, t} = translate(Astro.url.pathname);
 <Layout title="Alex Herbas - Desarrollador Web">
 	
 
-	<main class="pt-24">
+	<main class="pt-24" id={t.links.home}>
 		<SectionContainer>
 			<section class="mx-auto px-4 flex flex-col md:flex-row items-center gap-6 md:gap-2 md:px-w3 justify-center text-center md:text-left">
-				<BottomNav />
 				<div class="profile-image relative md:w-auto mb-6 md:mb-0 mr-5">
 					<img
 						src="/perfil_temporal.png" 
@@ -48,7 +46,7 @@ const {locale, t} = translate(Astro.url.pathname);
 
 					<div class="flex items-center gap-4 mt-4 min-w-[250px]">
 						<a 
-							href="/CV Alex.pdf" 
+							href="/CVAlexRodrigoHerbasLeiva.pdf" 
 							download
 							class="bg-white text-black px-6 w-auto py-2 rounded-lg font-medium hover:scale-105 transition-transform"
 						>
@@ -76,11 +74,11 @@ const {locale, t} = translate(Astro.url.pathname);
 			</section>
 		</SectionContainer>
 
-		<SectionContainer id="proyectos">
+		<SectionContainer>
 			<Proyectos />
 		</SectionContainer>
 
-		<SectionContainer id="habilidades">
+		<SectionContainer>
 			<Habilidades />
 		</SectionContainer>
 		<SectionContainer>

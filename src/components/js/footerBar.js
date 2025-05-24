@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Aplicar transformaciones según la distancia con intensidad ajustable
         if (distance === 0) {
           // Icono actual
-          scale = 1.4 * intensity + 0.2; // Escala máxima 1.5, mínima 0.9 + 0.2
+          scale = 1.4 * intensity + 0.3; // Escala máxima 1.5, mínima 0.9 + 0.2
           translateY = -15 * intensity;
           zIndex = 10;
           icon.classList.add('active');

@@ -55,12 +55,12 @@ export const POST: APIRoute = async ({ request }) => {
 await resend.emails.send({
   from: 'alex@alexhl.software',
   to: 'alexrodrigoherbas07@gmail.com',
-  subject: `Nuevo mensaje de contacto de ${name}`,
+  subject: `Nouveau message de votre portfolio 🚀`,
   html: `
     <h2>Nouveau message de votre portfolio 🚀</h2>
-    <p><strong>Nombre:</strong> ${name}</p>
-    <p><strong>Correo:</strong> ${email}</p>
-    <p><strong>Mensaje:</strong></p>
+    <p><strong>Nom:</strong> ${name}</p>
+    <p><strong>Mail:</strong> ${email}</p>
+    <p><strong>Message:</strong></p>
     <p>${message}</p>
   `
 });
@@ -70,13 +70,13 @@ console.log("📨 Correo enviado a Alex");
 await resend.emails.send({
   from: 'alex@alexhl.software',
   to: email,
-  subject: `Gracias por tu mensaje, ${name}`,
+  subject: `Merci de votre message, ${name}`,
   html: `
-    <h2>Hola ${name} 👋</h2>
-    <p>Gracias por contactarme desde mi portafolio. Acabo de recibir tu mensaje:</p>
+    <h2>Salut ${name} 👋</h2>
+    <p>Merci de votre message. J'ai reçu votre message:</p>
     <blockquote>${message}</blockquote>
-    <p>Me pondré en contacto contigo lo antes posible.</p>
-    <p>Un saludo,<br>Alex</p>
+    <p>Je me mettrai en contact avec toi le plus vite possible.</p>
+    <p>Avec mes salutations,<br>Alex</p>
   `
 });
 console.log("📩 Respuesta automática enviada al visitante");

@@ -8,9 +8,6 @@ import Github from '../../icons/github.astro';
 import LinkedIn from '../../icons/linkedIn.astro';
 import Footer from '../../components/Footer.astro';
 import { translate } from '../../utils/translate';
-import '../../styles/global.css'
-import BottomNav from '../../components/BottomNav.astro';
-
 const {locale, t} = translate(Astro.url.pathname);
 
 ---
@@ -18,56 +15,56 @@ const {locale, t} = translate(Astro.url.pathname);
 <Layout title="Alex Herbas - Desarrollador Web">
 	
 
-	<main class="pt-24">
+	<main class="pt-24" id={t.links.home}>
 		<SectionContainer>
 			<section class="mx-auto px-4 flex flex-col md:flex-row items-center gap-6 md:gap-2 md:px-w3 justify-center text-center md:text-left">
-				<BottomNav />
 				<div class="profile-image relative md:w-auto mb-6 md:mb-0 mr-5">
 					<img
-						src="/perfil_temporal.png"
-						alt="Alex Herbas"
+						src="/perfil_temporal.png" 
+						alt="Alex Herbas" 
 						class=" rounded-2xl object-contain hover:scale-105 transition-transform duration-300 w-36 h-36 sm:w-32 sm:h-32 md:w-52 md:h-52 lg:w-64 lg:h-64 xl:w-72 xl:h-72"
 					>
 				</div>
 				
 				<div class="flex flex-col gap-4">
-					<h1 class="animate-fade-in animate-delay-100 text-2xl font-bold bg-gradient-to-r dark:from-white from-black dark:to-yellow-300 bg-clip-text text-transparent md:text-5xl">
+					<h1 class="animate-fade-in animate-delay-100 text-2xl font-bold bg-gradient-to-r from-white to-yellow-300 bg-clip-text text-transparent md:text-5xl">
 						{t.index.greeting}
 					</h1>
 					
 					<div class="flex flex-col md:flex-row items-center gap-2">
 						<Badge class="animate-pulse">
-							<span class="flex items-center gap-2 text-[#fef08a]/80 dark:text-[#aad0fc]">
-								<span class=" w-2 h-2 bg-green-400 dark:bg-green-400 rounded-full md:w-2 md:h-2  "></span>
+							<span class="flex items-center gap-2 text-[#9dcbff] dark:text-[#aad0fc]">
+								<span class=" w-2 h-2 bg-green-400 rounded-full md:w-2 md:h-2  "></span>
 								{t.index.available}
 							</span>
 						</Badge>
 					</div>
 
-					<p class="text-base dark:text-gray-300 text-gray-300 max-w-xl md:text-2xl text-[15px]">
+					<p class="text-base text-gray-300 max-w-xl md:text-2xl text-[15px]">
 						{t.index.description}
 					</p>
 
 					<div class="flex items-center gap-4 mt-4 min-w-[250px]">
 						<a 
-							href="/CV.pdf" 
+							href="/CVAlexRodrigoHerbasLeiva.pdf" 
 							download
-							class="bg-white dark:bg-white text-black dark:text-black px-6 w-auto py-2 rounded-lg font-medium hover:scale-105 transition-transform"
+							class="bg-white text-black px-6 w-auto py-2 rounded-lg font-medium hover:scale-105 transition-transform"
 						>
 							{t.index.download_cv}
 						</a>
+						
 						<div class="flex gap-4">
 							<a
 								href="https://github.com/alexhl0723" 
 								target="_blank"
-								class="hover:scale-125 transition-transform ease-in-out duration-300"
+								class="text-white hover:scale-125 hover:animate-pulsing"
 							>
 								<Github class="w-8 h-8"/>
 							</a>
 							<a 
 								href="https://www.linkedin.com/in/alexherbasleiva/" 
 								target="_blank"
-								class="hover:scale-125 transition-transform ease-in-out duration-300"
+								class="text-white hover:scale-125 hover:animate-pulsing"
 							>
 								<LinkedIn class="w-8 h-8"/>
 							</a>
@@ -77,11 +74,11 @@ const {locale, t} = translate(Astro.url.pathname);
 			</section>
 		</SectionContainer>
 
-		<SectionContainer id="proyectos">
+		<SectionContainer>
 			<Proyectos />
 		</SectionContainer>
 
-		<SectionContainer id="habilidades">
+		<SectionContainer>
 			<Habilidades />
 		</SectionContainer>
 		<SectionContainer>

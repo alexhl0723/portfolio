@@ -1,0 +1,45 @@
+---
+import '../styles/global.css'
+import { translate } from '../utils/translate';
+
+const { locale } = translate(Astro.url.pathname);
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Portfolio de Alex Herbas - Desarrollador Web" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+    
+  <body class="relative bg-black">
+
+
+    
+    <!-- Contenido principal - aseguramos que ocupe todo el ancho disponible -->
+    <main class="w-full overflow-x-hidden">
+      <slot />
+    </main>
+    
+  </body>
+</html>
+
+<style is:global>
+  html {
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+</style>

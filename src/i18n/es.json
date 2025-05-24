@@ -1,4 +1,12 @@
 {
+    "tooltips": {
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "skills": "Habilidades",
+        "cv": "Descargar CV",
+        "contact": "Contacto",
+        "theme": "Cambiar tema"
+    },
     "index":{
     "greeting": "Hola, soy Alex",
     "available": "Disponible para trabajar",
@@ -39,6 +47,13 @@
             "message": "Mensaje"
         },
         "creator": "Alex Herbas. Todos los derechos reservados."
+    },
+    "links":{
+        "home": "Inicio",
+        "projects": "Proyectos",
+        "skills": "Habilidades",
+        "contact": "Contacto",
+        "cv": "Descargar CV"
     }
   }
   

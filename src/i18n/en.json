@@ -1,4 +1,12 @@
 {
+    "tooltips": {
+        "home": "Home",
+        "projects": "Projects",
+        "skills": "Skills",
+        "cv": "Download CV",
+        "contact": "Contact",
+        "theme": "Toggle theme"
+    },
     "index":{
     "greeting": "Hi, I'm Alex",
     "available": "Available for work",
@@ -39,6 +47,12 @@
             "message": "Message"
         },
         "creator": "Alex Herbas. All rights reserved."  
+    },
+    "links":{
+        "home": "Home",
+        "projects": "Projects",
+        "skills": "Skills",
+        "contact": "Contact",
+        "cv": "Download CV"
     }
   }
-  

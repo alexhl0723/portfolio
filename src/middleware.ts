@@ -19,29 +19,73 @@ function getPreferredLang(request: Request): string {
   return 'es';
 }
 
-export const onRequest = defineMiddleware(({ request }, next) => {
+function getPathWithoutLang(pathname: string): { lang: string; path: string } {
+  const parts = pathname.split('/').filter(Boolean);
+  const maybeLang = parts[0];
+  
+  if (SUPPORTED_LANGUAGES.includes(maybeLang)) {
+    return {
+      lang: maybeLang,
+      path: '/' + parts.slice(1).join('/')
+    };
+  }
+  
+  return {
+    lang: 'es', // idioma por defecto
+    path: pathname
+  };
+}
+
+export const onRequest = defineMiddleware(async ({ request }, next) => {
   const url = new URL(request.url);
+  const { pathname } = url;
 
-  // ✅ Ignorar rutas API como /api/contact
-  if (url.pathname.startsWith('/api')) {
+  // Ignorar rutas API
+  if (pathname.startsWith('/api/')) {
     return next();
   }
 
-  const pathParts = url.pathname.split('/').filter(Boolean);
-  const currentLang = pathParts[0];
-
-  if (currentLang && SUPPORTED_LANGUAGES.includes(currentLang)) {
+  // Ignorar archivos estáticos
+  if (pathname.includes('.')) {
     return next();
   }
 
-  // ✅ Si no hay idioma en la URL, redirigir al preferido o 'es'
-  const preferredLang = getPreferredLang(request);
-  const newPath = `/${preferredLang}`;
+  // Manejar redirección de la raíz
+  if (pathname === '/') {
+    const preferredLang = getPreferredLang(request);
+    return new Response(null, {
+      status: 302,
+      headers: { Location: `/${preferredLang}/` },
+    });
+  }
 
-  return new Response(null, {
-    status: 302,
-    headers: {
-      Location: newPath,
-    },
-  });
+  // Obtener el idioma de la URL actual
+  const { lang, path } = getPathWithoutLang(pathname);
+  const is404 = path.endsWith('/404');
+
+  // Si es la ruta 404, permitir que se muestre
+  if (is404) {
+    return next();
+  }
+
+  // Verificar si la ruta existe
+  const response = await next();
+  
+  // Si la ruta no existe, redirigir al 404 con el idioma actual
+  if (response.status === 404) {
+    return new Response(null, {
+      status: 302,
+      headers: { Location: `/${lang}/404` },
+    });
+  }
+
+  // Redirigir a la versión con barra final si es necesario
+  if (!pathname.endsWith('/') && !pathname.includes('.')) {
+    return new Response(null, {
+      status: 302,
+      headers: { Location: `${pathname}/` },
+    });
+  }
+
+  return response;
 });
