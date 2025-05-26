@@ -1,6 +1,7 @@
 ---
 import  {translate}  from '../utils/translate'
 import Github from "../icons/github.astro";
+import EyeCode from "../icons/eyeCode.astro";
 import { proys } from "../content/info.ts";
 
 const {locale, t} = translate(Astro.url.pathname);
@@ -30,9 +31,14 @@ const projects = (proys[locale as keyof typeof proys] || proys['es']).projects;
                         />
                         <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                             <div class="flex gap-4">
-                                <a href={project.github} target="_blank" class="bg-white/20 p-2 rounded-full hover:scale-110 transition-transform">
+                                <a href={project.github} target="_blank" class="bg-[#1e1e28] p-2 rounded-full hover:scale-110 transition-transform">
                                     <Github class="w-5 h-5 sm:w-6 sm:h-6"/>
                                 </a>
+                                {project.preview && (
+                                    <a href={project.preview} target="_blank" class="bg-[#1e1e28] p-2 rounded-full hover:scale-110 transition-transform">
+                                        <EyeCode class="w-5 h-5 sm:w-6 sm:h-6"/>
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>

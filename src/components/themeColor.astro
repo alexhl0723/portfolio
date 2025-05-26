@@ -16,7 +16,7 @@ import Moon from "../icons/moon.astro";
       return localStorageTheme;
     }
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
+    return 'dark';
     }
     return 'light';
   })();

@@ -3,6 +3,20 @@ export const proys = {
     es: {
       projects: [
         {
+          name: "Bloge",
+          description: "Mi blog aun en desarrollo con el diseño y las parte funcionalidades ya desarroladas.",
+          image: "/bloge.webp",
+          github: "https://github.com/alexhl0723/blogee",
+          preview: "https://blogereal.vercel.app/",
+          technologies: [
+            { name: "Astro", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "Tailwind CSS", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "TypeScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "JavaScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "React", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" }
+          ]
+        },
+        {
           name: "Nautica Plus",
           description: "Aplicación web que permite a los usuarios registrar una reserva y gestionar sus reservas.",
           image: "/reservaRes.webp",
@@ -33,11 +47,25 @@ export const proys = {
             { name: "Node.js", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
             { name: "Javascript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" }
           ]
-        }
+        },
       ]
     },
     en: {
       projects: [
+        {
+          name: "Bloge",
+          description: "My blog still in development with the design and the functionalities already developed.",
+          image: "/bloge.webp",
+          github: "https://github.com/alexhl0723/blogee",
+          preview: "https://blogereal.vercel.app/",
+          technologies: [
+            { name: "Astro", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "Tailwind CSS", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "TypeScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "JavaScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "React", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" }
+          ]
+        },
         {
           name: "Nautica Plus",
           description: "Web application that allows users to register and manage their reservations.",
@@ -75,6 +103,20 @@ export const proys = {
     ja: {
       projects: [
         {
+          name: "Bloge",
+          description: "私のブログはまだ開発中ですが、デザインと機能部分はすでに開発されています。",
+          image: "/bloge.webp",
+          preview: "https://blogereal.vercel.app/",
+          github: "https://github.com/alexhl0723/blogee",
+          technologies: [
+            { name: "Astro", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "Tailwind CSS", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "TypeScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "JavaScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "React", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" }
+          ]
+        },
+        {
           name: "Nautica Plus",
           description: "ユーザーが予約を登録し、予約を管理できるWebアプリケーション。",
           image: "/reservaRes.webp",
@@ -110,6 +152,20 @@ export const proys = {
     },
     fr: {
       projects: [
+        {
+          name: "Bloge",
+          description: "Mon blog encore en développement avec le design et les fonctionnalités déjà développées.",
+          image: "/bloge.webp",
+          preview: "https://blogereal.vercel.app/",
+          github: "https://github.com/alexhl0723/blogee",
+          technologies: [
+            { name: "Astro", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "Tailwind CSS", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "TypeScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "JavaScript", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" },
+            { name: "React", bgColor: "rgba(191, 219, 254, 0.1)", textColor: "#BFDBFE" }
+          ]
+        },
         {
           name: "Nautica Plus",
           description: "Application web permettant aux utilisateurs d’enregistrer une réservation et de gérer leurs réservations.",
