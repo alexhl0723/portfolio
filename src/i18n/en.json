@@ -54,5 +54,13 @@
         "skills": "Skills",
         "contact": "Contact",
         "cv": "Download CV"
+    },
+    "timeline": {
+        "title": "My Experience",
+        "description": "My professional and educational journey in web development",
+        "current": "Current",
+        "workTogether": "Let's work together?",
+        "available": "I'm available for new projects and opportunities",
+        "experience": "Experience"
     }
-  }
+}

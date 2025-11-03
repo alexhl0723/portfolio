@@ -54,6 +54,13 @@
         "skills": "スキル",
         "contact": "お問い合わせ",
         "cv": "履歴書をダウンロード"
+    },
+    "timeline": {
+        "title": "私の経験",
+        "description": "私のプロフェッショナルな経験と教育的な旅をウェブ開発で",
+        "current": "現在",
+        "workTogether": "一緒に働きませんか？",
+        "available": "新しいプロジェクトと機会のために私を待っています",
+        "experience": "経験"
     }
-  }
-  
+}

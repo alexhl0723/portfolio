@@ -3,6 +3,8 @@ import { defineConfig,envField } from 'astro/config';
 import tailwind from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 
+import vue from '@astrojs/vue';
+
 export default defineConfig({
   vite: {
       plugins: [tailwind()],
@@ -17,11 +19,13 @@ export default defineConfig({
     },
 
   output: "server",
+
   adapter: vercel({
     webAnalytics: {
       enabled: true, // set to false when using @vercel/analytics@1.4.0
     },
   }),
+
   i18n: {
     defaultLocale: "es",
     locales: ["es", "en", "ja", "fr"],
@@ -30,4 +34,5 @@ export default defineConfig({
     },
   },
 
+  integrations: [vue()],
 });

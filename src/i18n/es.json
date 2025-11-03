@@ -54,6 +54,13 @@
         "skills": "Habilidades",
         "contact": "Contacto",
         "cv": "Descargar CV"
+    },
+    "timeline": {
+        "title": "Mi Experiencia",
+        "description": "Mi trayectoria profesional y educativa en el desarrollo web",
+        "current": "Actual",
+        "workTogether": "¿Quieres trabajar juntos?",
+        "available": "Estoy disponible para nuevos proyectos y oportunidades",
+        "experience": "Experiencia"
     }
-  }
-  
+}
