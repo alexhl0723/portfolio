@@ -1,66 +1,66 @@
 {
-    "tooltips": {
-        "home": "ホーム",
-        "projects": "プロジェクト",
-        "skills": "スキル",
-        "cv": "履歴書をダウンロード",
-        "contact": "お問い合わせ",
-        "theme": "テーマを切り替え"
-    },
-    "index": {
-      "greeting": "こんにちは、アレックスです",
-      "available": "勤務可能",
-      "description": "技術への情熱を持ち、知識を活かしてチームの成功に貢献し、専門的に成長できるダイナミックな環境を求めています。",
-      "download_cv": "履歴書をダウンロード"
-    },
-    "header": {
-      "project": "プロジェクト",
-      "skills": "スキル",
-      "download_cv": "履歴書をダウンロード"
-    },
-    "projects": {
-      "title": "プロジェクト",
-      "description": "アイデアをコードに変える"
-    },
-    "skills": {
-      "title": "技術スキル",
-      "description": "これまでの経験で身につけた技術や知識の集大成です。",
-      "skillSection": {
-        "frontend": "フロントエンド",
-        "backend": "バックエンド"
-      }
-    },
-    "footer": {
-      "myName": "アレックス・エルバス",
-      "description": "卓越したウェブ体験を創造することに情熱を注ぐ開発者兼デザイナー。",
-      "quickLinks": "クイックリンク",
-      "start": "ホーム",
-      "projects": "プロジェクト",
-      "skills": "スキル",
-      "contact": "お問い合わせ",
-      "myEmail": "メールアドレス",
-      "descriptionContact": "面白いプロジェクトがありますか？ぜひお話ししましょう！",
-      "contactMail": {
-        "sendMessage": "メッセージを送る",
-        "name": "名前",
-        "email": "メールアドレス",
-        "message": "メッセージ"
-      },
-      "creator": "アレックス・エルバス。全著作権所有。"
-    },
-    "links":{
-        "home": "ホーム",
-        "projects": "プロジェクト",
-        "skills": "スキル",
-        "contact": "お問い合わせ",
-        "cv": "履歴書をダウンロード"
-    },
-    "timeline": {
-        "title": "私の経験",
-        "description": "私のプロフェッショナルな経験と教育的な旅をウェブ開発で",
-        "current": "現在",
-        "workTogether": "一緒に働きませんか？",
-        "available": "新しいプロジェクトと機会のために私を待っています",
-        "experience": "経験"
+  "tooltips": {
+    "home": "ホーム",
+    "projects": "プロジェクト",
+    "skills": "スキル",
+    "cv": "履歴書をダウンロード",
+    "contact": "お問い合わせ",
+    "theme": "テーマを切り替え"
+  },
+  "index": {
+    "greeting": "こんにちは、アレックスです",
+    "available": "勤務可能",
+    "description": "技術への情熱を持ち、知識を活かしてチームの成功に貢献し、専門的に成長できるダイナミックな環境を求めています。",
+    "download_cv": "履歴書をダウンロード"
+  },
+  "header": {
+    "project": "プロジェクト",
+    "skills": "スキル",
+    "download_cv": "履歴書をダウンロード"
+  },
+  "projects": {
+    "title": "プロジェクト",
+    "description": "アイデアをコードに変える"
+  },
+  "skills": {
+    "title": "技術スキル",
+    "description": "これまでの経験で身につけた技術や知識の集大成です。",
+    "skillSection": {
+      "frontend": "フロントエンド",
+      "backend": "バックエンド"
     }
+  },
+  "footer": {
+    "myName": "アレックス・エルバス",
+    "description": "卓越したウェブ体験を創造することに情熱を注ぐ開発者兼デザイナー。",
+    "quickLinks": "クイックリンク",
+    "start": "ホーム",
+    "projects": "プロジェクト",
+    "skills": "スキル",
+    "contact": "お問い合わせ",
+    "myEmail": "メールアドレス",
+    "descriptionContact": "面白いプロジェクトがありますか？ぜひお話ししましょう！",
+    "contactMail": {
+      "sendMessage": "メッセージを送る",
+      "name": "名前",
+      "email": "メールアドレス",
+      "message": "メッセージ"
+    },
+    "creator": "アレックス・エルバス。全著作権所有。"
+  },
+  "links": {
+    "home": "ホーム",
+    "projects": "プロジェクト",
+    "skills": "スキル",
+    "contact": "お問い合わせ",
+    "cv": "履歴書をダウンロード"
+  },
+  "timeline": {
+    "title": "私の経験",
+    "description": "私のプロフェッショナルな経験と教育的な旅をウェブ開発で",
+    "current": "現在",
+    "workTogether": "一緒に働きませんか？",
+    "available": "新しいプロジェクトと機会のために私を待っています",
+    "experience": "経験"
+  }
 }

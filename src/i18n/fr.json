@@ -1,67 +1,75 @@
 {
-    "tooltips": {
-        "home": "Accueil",
-        "projects": "Projets",
-        "skills": "Compétences",
-        "cv": "Télécharger le CV",
-        "contact": "Contact",
-        "theme": "Changer de thème"
-    },
-    "index": {
-      "greeting": "Bonjour, je suis Alex",
-      "available": "Disponible pour travailler",
-      "description": "Passionné par la technologie, je cherche un environnement dynamique où je peux appliquer mes connaissances, contribuer au succès de l'équipe et continuer à me développer professionnellement.",
-      "download_cv": "Télécharger le CV"
-    },
-    "header": {
-      "project": "Projets",
-      "skills": "Compétences",
-      "download_cv": "Télécharger le CV"
-    },
-    "projects": {
-      "title": "Projets",
-      "description": "Transformer les idées en code"
-    },
-    "skills": {
-      "title": "Compétences Techniques",
-      "description": "Ensemble de technologies et de connaissances que j'ai acquises tout au long de ma carrière professionnelle.",
-      "skillSection": {
-        "frontend": "Frontend",
-        "backend": "Backend"
-      }
-    },
-    "footer": {
-      "myName": "Alex Herbas",
-      "description": "Développeur et designer passionné par la création d'expériences web exceptionnelles.",
-      "quickLinks": "Liens Rapides",
-      "start": "accueil",
-      "projects": "projets",
-      "skills": "compétences",
-      "contact": "contact",
-      "myEmail": "mon e-mail",
-      "descriptionContact": "Vous avez un projet intéressant ? Parlons-en !",
-      "contactMail": {
-        "sendMessage": "Envoyez-moi un message",
-        "name": "Nom",
-        "email": "Votre e-mail",
-        "message": "Message"
-      },
-      "creator": "Alex Herbas. Tous droits réservés."
-    },
-    "links":{
-        "home": "Accueil",
-        "projects": "Projets",
-        "skills": "Compétences",
-        "contact": "Contact",
-        "cv": "Télécharger le CV"
-    },
-    "timeline": {
-        "title": "Mon expérience",
-        "description": "Mon parcours professionnel et éducatif en développement web",
-        "current": "Actuel",
-        "workTogether": "Voulez-vous travailler ensemble ?",
-        "available": "Je suis disponible pour de nouveaux projets et opportunités",
-        "experience": "Expérience"
+  "seo": {
+    "title": "Alex Herbas - Développeur Web Full Stack | Portfolio",
+    "description": "Portfolio d'Alex Herbas, Développeur Web Full Stack spécialisé en JavaScript, React, Node.js et technologies modernes. Passionné par la création d'expériences web exceptionnelles.",
+    "keywords": "développeur web, full stack, JavaScript, React, Node.js, portfolio, programmeur, développement frontend, développement backend, conception web, Alex Herbas",
+    "ogTitle": "Alex Herbas - Développeur Web Full Stack",
+    "ogDescription": "Développeur Web passionné par la technologie. Spécialisé dans la création de solutions innovantes avec JavaScript, React et Node.js.",
+    "twitterTitle": "Alex Herbas - Développeur Web Full Stack",
+    "twitterDescription": "Portfolio d'Alex Herbas - Développeur Web spécialisé en technologies modernes"
+  },
+  "tooltips": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "cv": "Télécharger le CV",
+    "contact": "Contact",
+    "theme": "Changer de thème"
+  },
+  "index": {
+    "greeting": "Bonjour, je suis Alex",
+    "available": "Disponible pour travailler",
+    "description": "Passionné par la technologie, je cherche un environnement dynamique où je peux appliquer mes connaissances, contribuer au succès de l'équipe et continuer à me développer professionnellement.",
+    "download_cv": "Télécharger le CV"
+  },
+  "header": {
+    "project": "Projets",
+    "skills": "Compétences",
+    "download_cv": "Télécharger le CV"
+  },
+  "projects": {
+    "title": "Projets",
+    "description": "Transformer les idées en code"
+  },
+  "skills": {
+    "title": "Compétences Techniques",
+    "description": "Ensemble de technologies et de connaissances que j'ai acquises tout au long de ma carrière professionnelle.",
+    "skillSection": {
+      "frontend": "Frontend",
+      "backend": "Backend"
     }
+  },
+  "footer": {
+    "myName": "Alex Herbas",
+    "description": "Développeur et designer passionné par la création d'expériences web exceptionnelles.",
+    "quickLinks": "Liens Rapides",
+    "start": "accueil",
+    "projects": "projets",
+    "skills": "compétences",
+    "contact": "contact",
+    "myEmail": "mon e-mail",
+    "descriptionContact": "Vous avez un projet intéressant ? Parlons-en !",
+    "contactMail": {
+      "sendMessage": "Envoyez-moi un message",
+      "name": "Nom",
+      "email": "Votre e-mail",
+      "message": "Message"
+    },
+    "creator": "Alex Herbas. Tous droits réservés."
+  },
+  "links": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "contact": "Contact",
+    "cv": "Télécharger le CV"
+  },
+  "timeline": {
+    "title": "Mon expérience",
+    "description": "Mon parcours professionnel et éducatif en développement web",
+    "current": "Actuel",
+    "workTogether": "Voulez-vous travailler ensemble ?",
+    "available": "Je suis disponible pour de nouveaux projets et opportunités",
+    "experience": "Expérience"
+  }
 }
-  

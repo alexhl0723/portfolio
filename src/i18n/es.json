@@ -1,4 +1,13 @@
 {
+    "seo": {
+        "title": "Alex Herbas - Desarrollador Web Full Stack | Portfolio",
+        "description": "Portfolio de Alex Herbas, Desarrollador Web Full Stack especializado en JavaScript, React, Node.js y tecnologías modernas. Apasionado por crear experiencias web excepcionales.",
+        "keywords": "desarrollador web, full stack, JavaScript, React, Node.js, portfolio, programador, desarrollo frontend, desarrollo backend, diseño web, Alex Herbas",
+        "ogTitle": "Alex Herbas - Desarrollador Web Full Stack",
+        "ogDescription": "Desarrollador Web apasionado por la tecnología. Especializado en crear soluciones innovadoras con JavaScript, React y Node.js.",
+        "twitterTitle": "Alex Herbas - Desarrollador Web Full Stack",
+        "twitterDescription": "Portfolio de Alex Herbas - Desarrollador Web especializado en tecnologías modernas"
+    },
     "tooltips": {
         "home": "Inicio",
         "projects": "Proyectos",
@@ -7,30 +16,30 @@
         "contact": "Contacto",
         "theme": "Cambiar tema"
     },
-    "index":{
-    "greeting": "Hola, soy Alex",
-    "available": "Disponible para trabajar",
-    "description": "Apasionado por la tecnología, que busca un entorno dinámico, donde pueda aplicar mis conocimientos, contribuir al éxito del equipo y seguir desarrollándome profesionalmente.",
-    "download_cv": "Descargar CV"
-    },
-    "header":{
-        "project" : "Proyectos",
-        "skills" : "Habilidades",
+    "index": {
+        "greeting": "Hola, soy Alex",
+        "available": "Disponible para trabajar",
+        "description": "Apasionado por la tecnología, que busca un entorno dinámico, donde pueda aplicar mis conocimientos, contribuir al éxito del equipo y seguir desarrollándome profesionalmente.",
         "download_cv": "Descargar CV"
     },
-    "projects":{
+    "header": {
+        "project": "Proyectos",
+        "skills": "Habilidades",
+        "download_cv": "Descargar CV"
+    },
+    "projects": {
         "title": "Proyectos",
         "description": "Transformando ideas en código"
     },
-    "skills":{
+    "skills": {
         "title": "Habilidades Técnicas",
         "description": "Conjunto de tecnologías y conocimientos que he adquirido a lo largo de mi trayectoria profesional.",
-        "skillSection":{
+        "skillSection": {
             "frontend": "Frontend",
             "backend": "Backend"
         }
     },
-    "footer":{
+    "footer": {
         "myName": "Alex Herbas",
         "description": "Desarrollador y diseñador apasionado por crear experiencias web excepcionales.",
         "quickLinks": "Enlaces Rápidos",
@@ -40,7 +49,7 @@
         "contact": "contacto",
         "myEmail": "mi correo",
         "descriptionContact": "¿Tienes un proyecto interesante? ¡Hablemos!",
-        "contactMail":{
+        "contactMail": {
             "sendMessage": "Envíame un mensaje",
             "name": "Nombre",
             "email": "Tu correo",
@@ -48,7 +57,7 @@
         },
         "creator": "Alex Herbas. Todos los derechos reservados."
     },
-    "links":{
+    "links": {
         "home": "Inicio",
         "projects": "Proyectos",
         "skills": "Habilidades",
