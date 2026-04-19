@@ -2,12 +2,14 @@
 import  {translate}  from '../utils/translate'
 import Github from "../icons/github.astro";
 import EyeCode from "../icons/eyeCode.astro";
-import { proys } from "../content/info.ts";
+import { projectsData } from "../content/info.ts";
 
 const {locale, t} = translate(Astro.url.pathname);
 
-const projects = (proys[locale as keyof typeof proys] || proys['es']).projects;
-
+const projects = projectsData.map(project => ({
+    ...project,
+    description: project.description[locale as keyof typeof project.description] || project.description.es
+}));
 ---
 
 <section id={t.links.projects} class="py-12 sm:py-16 md:py-24">
@@ -20,45 +22,48 @@ const projects = (proys[locale as keyof typeof proys] || proys['es']).projects;
             {t.projects.description}
         </p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div class="projects-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {projects.map((project: any) => (
-                <article class="dark:bg-black/20 rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 border dark:border-gray-800">
-                    <div class="relative group">
-                        <img 
-                            src={project.image} 
-                            alt={`${project.name} Preview`}
-                            class="w-full aspect-video object-cover"
-                        />
-                        <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div class="flex gap-4">
-                                <a href={project.github} target="_blank" class="bg-[#1e1e28] p-2 rounded-full hover:scale-110 transition-transform">
-                                    <Github class="w-5 h-5 sm:w-6 sm:h-6"/>
-                                </a>
-                                {project.preview && (
-                                    <a href={project.preview} target="_blank" class="bg-[#1e1e28] p-2 rounded-full hover:scale-110 transition-transform">
-                                        <EyeCode class="w-5 h-5 sm:w-6 sm:h-6"/>
+                /* 👇 Nuevo contenedor wrapper para que GSAP lo anime 👇 */
+                <div class="project-wrapper"> 
+                    <article class="h-full dark:bg-black/20 rounded-xl overflow-hidden hover:scale-105 transition-all duration-300 border dark:border-gray-800">
+                        <div class="relative group">
+                            <img 
+                                src={project.image} 
+                                alt={`${project.name} Preview`}
+                                class="w-full aspect-video object-cover"
+                            />
+                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div class="flex gap-4">
+                                    <a href={project.github} target="_blank" class="bg-[#1e1e28] p-2 rounded-full hover:scale-110 transition-transform">
+                                        <Github class="w-5 h-5 sm:w-6 sm:h-6"/>
                                     </a>
-                                )}
+                                    {project.preview && (
+                                        <a href={project.preview} target="_blank" class="bg-[#1e1e28] p-2 rounded-full hover:scale-110 transition-transform">
+                                            <EyeCode class="w-5 h-5 sm:w-6 sm:h-6"/>
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="p-4 sm:p-6">
-                        <h3 class="text-lg sm:text-xl dark:text-white/80 font-semibold mb-1 sm:mb-2">{project.name}</h3>
-                        <p class="text-sm sm:text-base dark:text-gray-400 mb-3 sm:mb-4">
-                            {project.description}
-                        </p>
-
-                        <div class="flex flex-wrap gap-1 sm:gap-2">
-                            {project.technologies.map((tech: any) => (
-                                <span class="dark:text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full"
-                                    style={`background-color: ${tech.bgColor}; color: ${tech.textColor};`}>
-                                    {tech.name}
-                                </span>
-                            ))}
+        
+                        <div class="p-4 sm:p-6">
+                            <h3 class="text-lg sm:text-xl dark:text-white/80 font-semibold mb-1 sm:mb-2">{project.name}</h3>
+                            <p class="text-sm sm:text-base dark:text-gray-400 mb-3 sm:mb-4">
+                                {project.description}
+                            </p>
+        
+                            <div class="flex flex-wrap gap-1 sm:gap-2">
+                                {project.technologies.map((tech: any) => (
+                                    <span class="dark:text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full"
+                                        style={`background-color: ${tech.bgColor}; color: ${tech.textColor};`}>
+                                        {tech.name}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </div>
             ))}
         </div>
     </div>
@@ -70,3 +75,28 @@ const projects = (proys[locale as keyof typeof proys] || proys['es']).projects;
                     0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 </style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Seleccionamos todos los wrappers de las tarjetas
+    const cards = gsap.utils.toArray('.project-wrapper');
+
+    // Creamos la animación
+    gsap.from(cards, {
+        scrollTrigger: {
+            trigger: ".projects-grid", // La animación inicia cuando la grilla entra en pantalla
+            start: "top 80%", // Empieza cuando el borde superior de la grilla toca el 80% de tu pantalla
+            toggleActions: "play none none reverse" // Para que vuelva a ocurrir si subes y bajas
+        },
+        x: -100, // Vienen desde la izquierda (moviéndose hacia la derecha)
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.5)", // Un efecto de rebote suave al llegar a su lugar
+        stagger: 0.2, // 🔥 ESTA ES LA MAGIA: 0.2 segundos de retraso entre cada tarjeta
+        clearProps: "all"
+    });
+</script>

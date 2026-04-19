@@ -24,11 +24,8 @@ export const POST: APIRoute = async ({ request }) => {
       }), { status: 400 });
     }
 
-    console.log("✅ Datos del formulario recibidos:", { name, email, message });
+    console.log("Datos del formulario recibidos:", { name, email, message });
 
-    // ============================================
-    // ✅ 1. Intentar guardar en MongoDB PERO NO FALLAR SI DA ERROR
-    // ============================================
     try {
       console.log("🔌 Conectando a MongoDB...");
       client = new MongoClient(MONGODB_URI);

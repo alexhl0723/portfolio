@@ -12,83 +12,134 @@ import Tailwindcss from "../icons/Tailwindcss.astro";
 import React from "../icons/react.astro";
 import {translate} from "../utils/translate"
 
-
 const {locale , t} = translate(Astro.url.pathname);
-
 ---
 
-<section class="py-12 sm:py-16 md:py-20 lg:py-24 dark:from-black/20 dark:to-transparent w-full" id={t.links.skills} >
-    <div class="max-w-5xl mx-auto px-4">
-        <h2 class="text-3xl sm:text-4xl dark:text-white/90 text-white/90 md:text-5xl font-semibold text-center mb-6 sm:mb-8 md:mb-12">{t.skills.title}</h2>
-        <p class="text-center dark:text-gray-400 mb-8 sm:mb-12 md:mb-16 max-w-xs sm:max-w-md md:max-w-2xl mx-auto text-sm sm:text-base">{t.skills.description}</p>
+<section class="py-16 sm:py-24 w-full relative overflow-hidden" id={t.links.skills}>
+    <div class="absolute top-20 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+    <div class="absolute bottom-20 right-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
 
-        <div class="skills-container mx-auto w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-2xl xl:max-w-3xl">
-            <!-- Frontend Section -->
+    <div class="max-w-5xl mx-auto px-4 relative z-10">
+        <div class="skills-header">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
+                {t.skills.title}
+            </h2>
+            <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto text-sm sm:text-base">
+                {t.skills.description}
+            </p>
+        </div>
+
+        <div class="mx-auto w-full space-y-16">
             <div class="skill-section">
-                <div class="section-header">
-                    <div class="category-indicator"></div>
-                    <h3 class="section-title">{t.skills.skillSection.frontend}</h3>
+                <div class="flex items-center gap-4 mb-8 section-title-wrapper">
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+                    <h3 class="text-xl md:text-2xl font-semibold text-white/90 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full backdrop-blur-sm">
+                        ✨ {t.skills.skillSection.frontend}
+                    </h3>
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
                 </div>
-                <div class="skills-grid">
-                    <div class="skill-card group">
-                        <Html class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">HTML5</span>
-                    </div>
-                    <div class="skill-card group">
-                        <Css class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">CSS3</span>
-                    </div>
-                    <div class="skill-card group">
-                        <JavaScript class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">JavaScript</span>
-                    </div>
-                    <div class="skill-card group">
-                        <Astroicon class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">Astro</span>
-                    </div>
-                    <div class="skill-card group">
-                        <Tailwindcss class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">Tailwind CSS</span>
-                    </div>
-                    <div class="skill-card group">
-                        <React class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">React</span>
-                    </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+                    {[
+                        { name: "HTML5", Icon: Html },
+                        { name: "CSS3", Icon: Css },
+                        { name: "JavaScript", Icon: JavaScript },
+                        { name: "Astro", Icon: Astroicon },
+                        { name: "Tailwind CSS", Icon: Tailwindcss },
+                        { name: "React", Icon: React },
+                    ].map((tech) => (
+                        <div class="skill-card group relative flex flex-col items-center justify-center p-6 gap-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-blue-500/30 hover:bg-white/[0.04] transition-all duration-500 overflow-hidden cursor-default">
+                            <div class="absolute inset-0 bg-gradient-to-t from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            
+                            <tech.Icon class="w-12 h-12 sm:w-14 sm:h-14 relative z-10 group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-500 drop-shadow-lg" />
+                            <span class="text-sm font-medium text-gray-400 group-hover:text-white transition-colors relative z-10">{tech.name}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            <!-- Backend Section -->
             <div class="skill-section">
-                <div class="section-header">
-                    <div class="category-indicator backend"></div>
-                    <h3 class="section-title">{t.skills.skillSection.backend}</h3>
+                <div class="flex items-center gap-4 mb-8 section-title-wrapper">
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-green-500/50 to-transparent"></div>
+                    <h3 class="text-xl md:text-2xl font-semibold text-white/90 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full backdrop-blur-sm">
+                        ⚙️ {t.skills.skillSection.backend}
+                    </h3>
+                    <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-green-500/50 to-transparent"></div>
                 </div>
-                <div class="skills-grid">
-                    <div class="skill-card group">
-                        <Java class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">Java</span>
-                    </div>
-                    <div class="skill-card group">
-                        <SqlServer class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">SQL Server</span>
-                    </div>
-                    <div class="skill-card group">
-                        <MySQl class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">MySQL</span>
-                    </div>
-                    <div class="skill-card group">
-                        <Node class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">Node.js</span> 
-                    </div>
-                    <div class="skill-card group">
-                        <MongoDB class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto group-hover:scale-110 transition-transform" />
-                        <span class="skill-name">MongoDB</span> 
-                    </div>
-                </div>
-                
-            </div>
 
-            <!-- Puedes añadir más secciones siguiendo el mismo patrón -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+                    {[
+                        { name: "Java", Icon: Java },
+                        { name: "SQL Server", Icon: SqlServer },
+                        { name: "MySQL", Icon: MySQl },
+                        { name: "Node.js", Icon: Node },
+                        { name: "MongoDB", Icon: MongoDB },
+                    ].map((tech) => (
+                        <div class="skill-card group relative flex flex-col items-center justify-center p-6 gap-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:border-green-500/30 hover:bg-white/[0.04] transition-all duration-500 overflow-hidden cursor-default">
+                            <div class="absolute inset-0 bg-gradient-to-t from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            
+                            <tech.Icon class="w-12 h-12 sm:w-14 sm:h-14 relative z-10 group-hover:scale-110 group-hover:-translate-y-1 transition-transform duration-500 drop-shadow-lg" />
+                            <span class="text-sm font-medium text-gray-400 group-hover:text-white transition-colors relative z-10">{tech.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animación principal del título
+    gsap.from(".skills-header", {
+        scrollTrigger: {
+            trigger: ".skills-header",
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        clearProps: "all"
+    });
+
+    // Animación por cada sección (Frontend / Backend)
+    const sections = gsap.utils.toArray('.skill-section');
+    
+    sections.forEach((section) => {
+        // Creamos una línea de tiempo para controlar el orden
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section as Element,
+                start: "top 80%", // Empieza cuando la sección asoma el 20%
+                toggleActions: "play none none reverse"
+            }
+        });
+
+        // 1. Primero entra el título de la categoría
+        const title = (section as Element).querySelector('.section-title-wrapper');
+        tl.from(title, {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            clearProps: "all"
+        });
+
+        // 2. Luego entran las tarjetas con efecto dominó (stagger)
+        const cards = (section as Element).querySelectorAll('.skill-card');
+        tl.from(cards, {
+            y: 40,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1, // Distancia de 0.1s entre cada tarjeta
+            ease: "back.out(1.2)", // Efecto elástico sutil al terminar de subir
+            clearProps: "all"
+        }, "-=0.3"); // El "-=0.3" hace que las tarjetas empiecen a salir ANTES de que el título termine, para mayor fluidez.
+    });
+</script>

@@ -50,7 +50,7 @@ const getTypeColorTranslate = (type: string) => {
                     
                     return (
                         <div class={`relative flex items-center ${isEven ? 'md:justify-start' : 'md:justify-end'}`}>
-                            <div class={`timeline-item bg-black/20 backdrop-blur-sm border border-gray-800 rounded-xl p-6 ml-12 md:ml-0 md:w-5/12 hover:scale-105 transition-all duration-500 hover:border-gray-600 ${item.current ? 'ring-2 ring-green-500/30 bg-green-500/5' : ''}`}>
+                            <div class={`timeline-item bg-black/20 backdrop-blur-sm border border-gray-800 rounded-xl p-6 ml-12 md:ml-0 md:w-5/12 hover:scale-105 transition-colors duration-500 hover:border-gray-600 ${item.current ? 'ring-2 ring-green-500/30 bg-green-500/5' : ''}`}>
                                 {item.current && (
                                     <div class="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">
                                         {t.timeline.current}
@@ -108,10 +108,10 @@ const getTypeColorTranslate = (type: string) => {
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
-    .timeline-item {
+    /*.timeline-item {
         animation: slideInUp 0.6s ease-out backwards;
     }
-    
+
     .timeline-item:nth-child(even) {
         animation-delay: 0.2s;
     }
@@ -130,6 +130,7 @@ const getTypeColorTranslate = (type: string) => {
             transform: translateY(0);
         }
     }
+    */
 
     @media (max-width: 768px) {
         .timeline-item {
@@ -137,3 +138,56 @@ const getTypeColorTranslate = (type: string) => {
         }
     }
 </style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    let mm = gsap.matchMedia();
+
+    // --- ANIMACIÓN PARA ESCRITORIO ---
+    mm.add("(min-width: 768px)", () => {
+        const items = gsap.utils.toArray('.timeline-item');
+        
+        items.forEach((item, index) => {
+            const isLeft = index % 2 === 0;
+            
+            gsap.from(item as Element, {
+                scrollTrigger: {
+                    trigger: item as Element,
+                    start: "top 85%",
+                    // 👇 ESTA ES LA MAGIA 👇
+                    toggleActions: "play none none reverse" 
+                },
+                x: isLeft ? -150 : 150, 
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                clearProps: "all" 
+            });
+        });
+    });
+
+    // --- ANIMACIÓN PARA MÓVILES ---
+    mm.add("(max-width: 767px)", () => {
+        const items = gsap.utils.toArray('.timeline-item');
+        
+        items.forEach((item) => {
+            gsap.from(item as Element, {
+                scrollTrigger: {
+                    trigger: item as Element,
+                    start: "top 90%",
+                    // 👇 TAMBIÉN LA AGREGAMOS AQUÍ 👇
+                    toggleActions: "play none none reverse"
+                },
+                x: 50, 
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                clearProps: "all" 
+            });
+        });
+    });
+</script>

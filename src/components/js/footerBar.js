@@ -1,222 +1,312 @@
+/**
+ * Footer Social Bar - Advanced Interactive Effects
+ * Features: Smooth magnetic hover, wave ripple, spring animations, glow effects
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
-    const socialBar = document.querySelector('.social-bar');
-    const icons = document.querySelectorAll('.social-icon');
-    let isHovering = false;
-    let currentIndex = -1;
-    let animationFrameId = 1;
-    let lastMouseX = 0;
-    
-    // Función para aplicar transformaciones con animación suave
-    const applyTransformations = (index, intensity = 1.0) => {
-      currentIndex = index;
+  const socialBar = document.querySelector('.social-bar');
+  const icons = document.querySelectorAll('.social-icon');
+  
+  // State management
+  const state = {
+    isHovering: false,
+    activeIndex: -1,
+    mouseX: 0,
+    animationFrame: null,
+    lastUpdate: 0,
+    throttleDelay: 16, // ~60fps
+  };
+
+  // Configuration
+  const config = {
+    baseScale: 0.9,
+    maxScale: 1.5,
+    maxTranslateY: -18,
+    rotationIntensity: 3,
+    animationDuration: 600,
+    springStiffness: 0.15,
+    springDamping: 0.75,
+    waveRadius: 120,
+    glowIntensity: 0.6,
+  };
+
+  // Easing functions
+  const easing = {
+    easeOutExpo: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+    easeOutBack: t => {
+      const c1 = 1.70158;
+      const c3 = c1 + 1;
+      return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    },
+    easeInOutCubic: t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  };
+
+  /**
+   * Calculate distance-based influence factor
+   */
+  const getInfluence = (distance, maxDistance) => {
+    const ratio = Math.max(0, 1 - distance / maxDistance);
+    return Math.pow(ratio, 2.5); // Quadratic falloff for smooth transitions
+  };
+
+  /**
+   * Apply magnetic hover effect to icons
+   */
+  const applyMagneticEffect = (index, mouseX) => {
+    state.activeIndex = index;
+    state.isHovering = true;
+
+    icons.forEach((icon, i) => {
+      const distance = Math.abs(index - i);
+      const iconRect = icon.getBoundingClientRect();
+      const iconCenterX = iconRect.left + iconRect.width / 2;
+      const mouseDistance = Math.abs(mouseX - iconCenterX);
       
-      icons.forEach((icon, iconIndex) => {
-        // Calcular distancia relativa al icono actual
-        const distance = Math.abs(index - iconIndex);
+      let scale, translateY, rotation, glow;
+
+      if (distance === 0) {
+        // Active icon - maximum effect
+        scale = config.maxScale;
+        translateY = config.maxTranslateY;
+        rotation = 0;
+        glow = 1;
         
-        // Valores base para las transformaciones
-        let scale = 0.9;
-        let translateY = 0;
-        let zIndex = 1;
-        let rotation = 0;
-        
-        // Aplicar transformaciones según la distancia con intensidad ajustable
-        if (distance === 0) {
-          // Icono actual
-          scale = 1.4 * intensity + 0.3; // Escala máxima 1.5, mínima 0.9 + 0.2
-          translateY = -15 * intensity;
-          zIndex = 10;
-          icon.classList.add('active');
-        } else if (distance === 1) {
-          // Iconos adyacentes
-          scale = 1.05 * intensity + 0.05;
-          translateY = -15 * intensity;
-          zIndex = 5;
-          //rotation = index > iconIndex ? -2 * intensity : 0 * intensity; // Ligera rotación
-          icon.classList.remove('active');
-        } else if (distance === 2) {
-          // Iconos a distancia 2
-          scale = 1.02 * intensity + 0.03;
-          translateY = -7 * intensity;
-          zIndex = 2;
-          icon.classList.remove('active');
-        } else {
-          icon.classList.remove('active');
-        }
-        
-        
-        // Aplicar transformaciones con CSS
-        icon.style.transform = `scale(${scale}) translateY(${translateY}px) rotate(${rotation}deg)`;
-        icon.style.zIndex = zIndex;
-      });
-    };
-    
-    // Función para resetear transformaciones gradualmente
-    const resetTransformations = () => {
-      isHovering = false;
-      currentIndex = -1;
-      
-      // Animación de retorno suave
-      let progress = 1.0;
-      const duration = 500; // ms
-      const startTime = performance.now();
-      
-      const animateReset = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        progress = Math.max(0, 1 - (elapsed / duration));
-        
-        if (progress > 0) {
-          // Aplicar transformación con intensidad decreciente
-          icons.forEach(icon => {
-            const scale = 0.9 + (icon._targetScale  - 0.9) * progress;
-            const translateY = icon._targetTranslateY * progress;
-            const rotation = icon._targetRotation * progress;
-            
-            icon.style.transform = `scale(${scale}) translateY(${translateY}px) rotate(${rotation}deg)`;
-            
-            if (progress < 0.1) {
-              icon.classList.remove('active');
-            }
-          });
-          
-          animationFrameId = requestAnimationFrame(animateReset);
-        } else {
-          // Finalizar reset
-          icons.forEach(icon => {
-            icon.style.transform = 'scale(0.9) translateY(0) rotate(0deg)';
-            icon.style.zIndex = 1;
-            icon.classList.remove('active');
-          });
-          
-          animationFrameId = null;
-        }
-      };
-      
-      // Guardar valores actuales para animación
-      icons.forEach(icon => {
-        const transform = getComputedStyle(icon).transform;
-        const matrix = new DOMMatrix(transform);
-        
-        // Extraer valores actuales de la matriz de transformación
-        icon._targetScale = matrix.m11; // scale en el eje X
-        
-        // Extraer translateY de la matriz
-        const translateYMatch = transform.match(/translateY\(([^)]+)\)/);
-        icon._targetTranslateY = translateYMatch ? parseFloat(translateYMatch[1]) : 0;
-        
-        // Extraer rotate de la matriz
-        const rotateMatch = transform.match(/rotate\(([^)]+)\)/);
-        icon._targetRotation = rotateMatch ? parseFloat(rotateMatch[1]) : 0;
-      });
-      
-      // Iniciar animación de reset
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(animateReset);
-    };
-    
-    // Función para manejar hover con easing personalizado
-    const handleIconHover = (index, mouseX = null) => {
-      isHovering = true;
-      
-      // Si hay mouse position, aplicamos influencia de posición
-      if (mouseX !== null) {
-        const icon = icons[index];
+        // Add subtle horizontal influence based on mouse position
         const rect = icon.getBoundingClientRect();
-        const iconWidth = rect.width;
-        const relativeX = mouseX - rect.left;
-        const positionFactor = (relativeX / iconWidth) * 2 - 1; // -1 a 1
+        const relativeX = (mouseX - rect.left) / rect.width - 0.5;
+        rotation = relativeX * config.rotationIntensity * 0.5;
+      } else if (distance === 1) {
+        // Adjacent icons - medium effect
+        scale = 1.15;
+        translateY = -10;
+        rotation = (index > i ? -1 : 1) * 2;
+        glow = 0.4;
+      } else if (distance === 2) {
+        // Far icons - minimal effect
+        scale = 1.02;
+        translateY = -4;
+        rotation = 0;
+        glow = 0.1;
+      } else {
+        scale = config.baseScale;
+        translateY = 0;
+        rotation = 0;
+        glow = 0;
+      }
+
+      // Apply transformations with smooth CSS transitions
+      icon.style.transform = `
+        scale(${scale}) 
+        translateY(${translateY}px) 
+        rotate(${rotation}deg)
+      `;
+      icon.style.zIndex = Math.max(1, 10 - distance * 3);
+      
+      // Update glow effect
+      if (glow > 0.3) {
+        icon.classList.add('active');
+        icon.style.filter = `brightness(${1 + config.glowIntensity * glow})`;
+      } else {
+        icon.classList.remove('active');
+        icon.style.filter = '';
+      }
+    });
+  };
+
+  /**
+   * Wave ripple effect when moving mouse across bar
+   */
+  const applyWaveEffect = (mouseX) => {
+    const barRect = socialBar.getBoundingClientRect();
+    
+    icons.forEach((icon, index) => {
+      const iconRect = icon.getBoundingClientRect();
+      const iconCenterX = iconRect.left + iconRect.width / 2;
+      const distance = Math.abs(mouseX - iconCenterX);
+      const influence = getInfluence(distance, config.waveRadius);
+
+      if (influence > 0.05) {
+        const scale = config.baseScale + (config.maxScale - config.baseScale) * influence * 0.6;
+        const translateY = config.maxTranslateY * influence * 0.7;
+        const rotation = ((mouseX > iconCenterX) ? -1 : 1) * config.rotationIntensity * influence * 0.4;
+
+        icon.style.transform = `
+          scale(${scale}) 
+          translateY(${translateY}px) 
+          rotate(${rotation}deg)
+        `;
+        icon.style.zIndex = Math.round(influence * 8);
         
-        // Aplicar suavizado
-        applyTransformations(index);
-        
-        // Si está en los bordes, generar influencia en iconos adyacentes
-        if (Math.abs(positionFactor) > 0.7) {
-          const adjacentIndex = positionFactor > 0 ? 
-            Math.min(icons.length - 1, index + 1) : 
-            Math.max(0, index - 1);
-            
-          if (adjacentIndex !== index) {
-            const intensity = Math.min(0.3, (Math.abs(positionFactor) - 0.7) / 0.3);
-            icons[adjacentIndex].style.transform = 
-              `scale(${1.05 + intensity * 0.15}) translateY(${-5 - intensity * 5}px)`;
-          }
+        if (influence > 0.5) {
+          icon.classList.add('active');
+        } else {
+          icon.classList.remove('active');
         }
       } else {
-        applyTransformations(index);
+        // Reset to default
+        icon.style.transform = `scale(${config.baseScale}) translateY(0) rotate(0deg)`;
+        icon.style.zIndex = 1;
+        icon.classList.remove('active');
+        icon.style.filter = '';
       }
-    };
-    
-    // Aplicar efecto de onda al mover el mouse
-    const applyWaveEffect = (mouseX) => {
-      lastMouseX = mouseX;
-      
-      if (currentIndex !== -1) return; // No aplicar si hay un icono con hover
-      
-      const barRect = socialBar.getBoundingClientRect();
-      const barWidth = barRect.width;
-      
-      icons.forEach((icon, index) => {
-        const iconRect = icon.getBoundingClientRect();
-        const iconCenterX = iconRect.left + iconRect.width/2 - barRect.left;
-        const distance = Math.abs(mouseX - iconCenterX);
-        const maxDistance = barWidth / 3;
-        
-        // Calcular escala y elevación basada en la distancia al cursor
-        if (distance < maxDistance) {
-          const effect = Math.pow(1 - distance / maxDistance, 2); // Efecto cuadrático para suavidad
-          const scale = 0.9 + 0.4 * effect;
-          const translateY = -12 * effect;
-          const rotation = ((mouseX > iconCenterX) ? -1 : 1) * 2 * effect;
-          
-          icon.style.transform = `scale(${scale}) translateY(${translateY}px) rotate(${rotation}deg)`;
-          icon.style.zIndex = Math.round(effect * 10);
-          
-          if (effect > 0.7) {
-            icon.classList.add('active');
-          } else {
-            icon.classList.remove('active');
-          }
-        } else {
-          icon.style.transform = 'scale(0.9) translateY(0) rotate(0deg)';
-          icon.style.zIndex = 1;
-          icon.classList.remove('active');
-        }
-      });
-    };
-    
-    // Optimizar el efecto de onda con requestAnimationFrame
-    const optimizedWaveEffect = (e) => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-      
-      animationFrameId = requestAnimationFrame(() => {
-        const barRect = socialBar.getBoundingClientRect();
-        const mouseX = e.clientX - barRect.left;
-        applyWaveEffect(mouseX);
-      });
-    };
-    
-    // Eventos para cada icono
-    icons.forEach((icon, index) => {
-      icon.addEventListener('mouseenter', (e) => {
-        handleIconHover(index, e.clientX);
-      });
-      
-      icon.addEventListener('mousemove', (e) => {
-        if (!isHovering) return;
-        handleIconHover(index, e.clientX);
+    });
+  };
+
+  /**
+   * Smooth spring-based reset animation
+   */
+  const resetWithSpring = () => {
+    state.isHovering = false;
+    state.activeIndex = -1;
+
+    // Cancel any ongoing animation
+    if (state.animationFrame) {
+      cancelAnimationFrame(state.animationFrame);
+    }
+
+    const startTime = performance.now();
+    const initialValues = [];
+
+    // Capture current state
+    icons.forEach(icon => {
+      const transform = getComputedStyle(icon).transform;
+      const matrix = new DOMMatrixReadOnly(transform);
+      initialValues.push({
+        scale: matrix.m11 || config.baseScale,
+        translateY: matrix.m42 || 0,
+        rotation: 0, // Extract from rotation if needed
       });
     });
-    
-    // Eventos para la barra social
-    socialBar.addEventListener('mouseleave', resetTransformations);
-    socialBar.addEventListener('mousemove', optimizedWaveEffect);
-    
-    // Limpiar animación al desmontar
-    window.addEventListener('beforeunload', () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(1, elapsed / config.animationDuration);
+      const easedProgress = easing.easeOutExpo(progress);
+
+      icons.forEach((icon, i) => {
+        const initial = initialValues[i];
+        
+        // Interpolate back to default
+        const scale = initial.scale + (config.baseScale - initial.scale) * easedProgress;
+        const translateY = initial.translateY * (1 - easedProgress);
+        const rotation = 0;
+
+        icon.style.transform = `
+          scale(${scale}) 
+          translateY(${translateY}px) 
+          rotate(${rotation}deg)
+        `;
+        icon.style.zIndex = 1;
+        
+        // Fade out glow
+        if (progress > 0.7) {
+          icon.classList.remove('active');
+          icon.style.filter = '';
+        }
+      });
+
+      if (progress < 1) {
+        state.animationFrame = requestAnimationFrame(animate);
+      } else {
+        // Final cleanup
+        icons.forEach(icon => {
+          icon.style.transform = `scale(${config.baseScale}) translateY(0) rotate(0deg)`;
+          icon.style.zIndex = 1;
+          icon.classList.remove('active');
+          icon.style.filter = '';
+        });
+        state.animationFrame = null;
+      }
+    };
+
+    state.animationFrame = requestAnimationFrame(animate);
+  };
+
+  /**
+   * Throttled event handler for better performance
+   */
+  const handleMouseMove = (e) => {
+    const now = performance.now();
+    if (now - state.lastUpdate < state.throttleDelay) return;
+    state.lastUpdate = now;
+
+    const barRect = socialBar.getBoundingClientRect();
+    const mouseX = e.clientX;
+    state.mouseX = mouseX;
+
+    // Check if hovering over any icon
+    let foundIcon = false;
+    icons.forEach((icon, index) => {
+      const rect = icon.getBoundingClientRect();
+      if (mouseX >= rect.left && mouseX <= rect.right) {
+        foundIcon = true;
+        applyMagneticEffect(index, mouseX);
+      }
+    });
+
+    // If not over an icon but still in bar, apply wave
+    if (!foundIcon && state.isHovering) {
+      applyWaveEffect(mouseX);
+    }
+  };
+
+  // Event listeners
+  icons.forEach((icon, index) => {
+    icon.addEventListener('mouseenter', (e) => {
+      applyMagneticEffect(index, e.clientX);
+    });
+
+    icon.addEventListener('mousemove', (e) => {
+      if (state.activeIndex === index) {
+        applyMagneticEffect(index, e.clientX);
       }
     });
   });
+
+  socialBar.addEventListener('mousemove', handleMouseMove);
+  socialBar.addEventListener('mouseleave', resetWithSpring);
+
+  // Touch support for mobile
+  icons.forEach((icon, index) => {
+    icon.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      applyMagneticEffect(index, touch.clientX);
+    }, { passive: false });
+  });
+
+  document.addEventListener('touchend', () => {
+    if (state.isHovering) {
+      resetWithSpring();
+    }
+  });
+
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    if (state.animationFrame) {
+      cancelAnimationFrame(state.animationFrame);
+    }
+  });
+
+  // Accessibility: Reduce motion for users who prefer it
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  
+  if (prefersReducedMotion.matches) {
+    // Disable complex animations
+    icons.forEach(icon => {
+      icon.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+    });
+  }
+
+  prefersReducedMotion.addEventListener('change', (e) => {
+    if (e.matches) {
+      icons.forEach(icon => {
+        icon.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+      });
+    } else {
+      icons.forEach(icon => {
+        icon.style.transition = '';
+      });
+    }
+  });
+});
