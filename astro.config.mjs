@@ -15,6 +15,8 @@ export default defineConfig({
         MONGODB_URI: envField.string({ context: 'server', access:'secret' }),
         DB_NAME: envField.string({ context: 'server', access:'secret' }),
         RESEND_API_KEY: envField.string({ context: 'server', access:'secret' }),
+        EMAIL_TO: envField.string({ context: 'server', access:'secret' }),
+        EMAIL_FROM: envField.string({ context: 'server', access:'secret' }),
       }
     },
 
